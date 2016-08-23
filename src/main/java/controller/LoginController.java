@@ -38,7 +38,7 @@ public class LoginController implements Serializable{
             admin = user.getUserClass().getAdmin();
             moderator = user.getUserClass().getModerator();
             loggedIn = true;
-            return "thankyou";
+            return "index";
         }
     }
 
@@ -60,6 +60,14 @@ public class LoginController implements Serializable{
 
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public boolean isModerator() {
+        return moderator;
     }
 
     public void logout() throws IOException {

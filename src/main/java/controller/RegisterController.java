@@ -24,7 +24,7 @@ import java.io.Serializable;
  * @since 2016-08-17.
  */
 @Named
-@SessionScoped
+@RequestScoped
 public class RegisterController implements Serializable {
     @Inject
     private UserService userService;
@@ -47,10 +47,10 @@ public class RegisterController implements Serializable {
 
         if (userService.findByName(name) == null) {
             userService.createPerson(name, password, userClass);
-            return "login";
+            return "thankyou";
         } else {
             FacesContext.getCurrentInstance().addMessage("register:username", new FacesMessage("Username is already taken"));
-            return "register";
+            return null;
         }
     }
 

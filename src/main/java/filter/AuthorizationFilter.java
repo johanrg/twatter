@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Johan Gustafsson
  * @since 2016-08-15.
  */
-@WebFilter(urlPatterns = {"*.xhtml"})
+//@WebFilter(urlPatterns = {"*.xhtml"})
 public class AuthorizationFilter implements Filter {
     @Inject
     LoginController user;
