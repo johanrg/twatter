@@ -14,22 +14,24 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
         @NamedQuery(name = "User.findByNameAndPassword", query = "SELECT u FROM User u WHERE u.name = :name AND u.password = :password")
 })
-@Table(name = "user", uniqueConstraints={@UniqueConstraint(columnNames = {"name"})})
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"name"})})
 public class User {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
     private Integer id;
 
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "name", columnDefinition = "VARCHAR(60) NOT NULL")
+    @ManyToOne
+    @JoinColumn(name = "USERCLASS_ID")
+    private UserClass userClass;
+
+    //@NotNull
+    //@Size(min = 1, max = 60)
+    @Column(columnDefinition = "VARCHAR(60) NOT NULL")
     private String name;
 
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "password", columnDefinition = "VARCHAR(45) NOT NULL", unique = true)
+    //@NotNull
+    //@Size(min = 1, max = 45)
+    @Column(columnDefinition = "VARCHAR(45) NOT NULL")
     private String password;
 
     public Integer getId() {
@@ -38,6 +40,14 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+   public UserClass getUserClass() {
+        return userClass;
+    }
+
+    public void setUserClass(UserClass userClass) {
+        this.userClass = userClass;
     }
 
     public String getName() {

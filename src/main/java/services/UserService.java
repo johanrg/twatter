@@ -1,6 +1,7 @@
 package services;
 
 import entities.User;
+import entities.UserClass;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -12,9 +13,8 @@ import javax.persistence.PersistenceContext;
  * @author Johan Gustafsson
  * @since 2016-08-17.
  */
-@Named
 @Stateless
-public class UserService extends ServiceInterface<User> {
+public class UserService extends AbstractService<User> {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -22,19 +22,19 @@ public class UserService extends ServiceInterface<User> {
         super(User.class);
     }
 
-    public User createPerson(String name, String password) {
+    public User createPerson(String name, String password, UserClass userClass) {
         User user = new User();
-        user.setId(1);
         user.setName(name);
         user.setPassword(password);
+        user.setUserClass(userClass);
 
-        save(user);
+        create(user);
         return user;
     }
 
     public User findByName(String name) {
         try {
-            return (User) getEntityManager().createNamedQuery("User.findByName").setParameter("name", name).getSingleResult();
+            return getEntityManager().createNamedQuery("User.findByName", User.class).setParameter("name", name).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -42,22 +42,14 @@ public class UserService extends ServiceInterface<User> {
 
     public User findByNameAndPassword(String name, String password) {
         try {
-            return (User) getEntityManager()
-                    .createNamedQuery("User.findByNameAndPassword")
+            return getEntityManager()
+                    .createNamedQuery("User.findByNameAndPassword", User.class)
                     .setParameter("name", name)
                     .setParameter("password", password)
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
-    }
-
-    public void save(User entity) {
-        entityManager.persist(entity);
-    }
-
-    public String login() {
-        return "index";
     }
 
     @Override

@@ -1,8 +1,10 @@
 package controller;
 
+import entities.User;
 import services.UserService;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -23,16 +25,20 @@ public class LoginController implements Serializable{
 
     private String name;
     private String password;
-    private String status;
     private boolean loggedIn = false;
+    private boolean admin;
+    private boolean moderator;
 
-    public void submit(ActionEvent evt) throws IOException {
-        if (userService.findByNameAndPassword(name, password) == null) {
-            status = "Incorrect username or password";
+    public String submit() throws IOException {
+        User user = userService.findByNameAndPassword(name, password);
+        if (user == null) {
+            FacesContext.getCurrentInstance().addMessage("login:loginGroupPanel", new FacesMessage("Invalid username or password"));
+            return null;
         } else {
-            status = "";
+            admin = user.getUserClass().getAdmin();
+            moderator = user.getUserClass().getModerator();
             loggedIn = true;
-            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+            return "thankyou";
         }
     }
 
@@ -52,14 +58,9 @@ public class LoginController implements Serializable{
         this.password = password;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
     public boolean isLoggedIn() {
         return loggedIn;
     }
-
 
     public void logout() throws IOException {
         loggedIn = false;

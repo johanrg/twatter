@@ -1,5 +1,7 @@
 package controller;
 
+import entities.UserClass;
+import services.UserClassService;
 import services.UserService;
 
 import javax.enterprise.context.ConversationScoped;
@@ -26,14 +28,25 @@ import java.io.Serializable;
 public class RegisterController implements Serializable {
     @Inject
     private UserService userService;
+    @Inject
+    private UserClassService userClassService;
 
     private String name;
     private String password;
     private String confirmPassword;
 
     public String submit() throws IOException {
+        UserClass userClass;
+        if (userService.count() == 0) {
+            // First user is always an admin, hard coded id
+            userClass = userClassService.find(1);
+        } else {
+            // Normal user
+            userClass = userClassService.find(3);
+        }
+
         if (userService.findByName(name) == null) {
-            userService.createPerson(name, password);
+            userService.createPerson(name, password, userClass);
             return "login";
         } else {
             FacesContext.getCurrentInstance().addMessage("register:username", new FacesMessage("Username is already taken"));

@@ -24,7 +24,7 @@
             <h:outputLabel for="password" value="Password : "/>
             <h:inputSecret id="password" value="#{registerController.password}" required="true"
                            requiredMessage="Please enter password">
-                <f:validator validatorId="passwordValidator"/>
+               <f:validator validatorId="passwordValidator"/>
                 <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
             </h:inputSecret>
             <h:message for="password" style="color: red;"/>
