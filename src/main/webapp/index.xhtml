@@ -6,8 +6,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <p></p>
-    <p>Welcome back #{loginController.name}!</p>
-    <h:form><p><h:commandButton value="Logout" action="#{loginController.logout}"/></p></h:form>
+    <p>
+        <h:panelGroup rendered="#{loginController.admin}">
+            | <h:link value="Admin panel" outcome="admin/index"/> |
+        </h:panelGroup>
+        <h:panelGroup rendered="#{loginController.loggedIn}">
+            <h:form> | <h:commandLink value="Log out" action="#{loginController.logout}"/> | </h:form>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{!loginController.loggedIn}">
+            | <h:link value="Log in" outcome="login"/> |
+        </h:panelGroup>
+    </p>
+    <h:panelGroup rendered="#{loginController.loggedIn}"><p>Welcome back, #{loginController.name}!</p></h:panelGroup>
+    <h:panelGroup rendered="#{!loginController.loggedIn}"><p>Please log in to the site</p></h:panelGroup>
 </f:view>
 </html>

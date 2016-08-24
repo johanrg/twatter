@@ -16,7 +16,8 @@
         <h:panelGrid columns="3" id="RegisterGroupPanel">
 
             <h:outputLabel for="username" value="Username : "/>
-            <h:inputText id="username" value="#{registerController.name}" required="true"
+            <h:inputText id="username" value="#{registerController.name}"
+                         required="true"
                          requiredMessage="Please enter username">
             </h:inputText>
             <h:message for="username" style="color: red;"/>

@@ -19,13 +19,13 @@ import java.io.Serializable;
  */
 @Named
 @SessionScoped
-public class LoginController implements Serializable{
+public class LoginController implements Serializable {
     @Inject
     UserService userService;
 
     private String name;
     private String password;
-    private boolean loggedIn = false;
+    private boolean loggedIn;
     private boolean admin;
     private boolean moderator;
 
@@ -71,8 +71,11 @@ public class LoginController implements Serializable{
     }
 
     public void logout() throws IOException {
+        admin = false;
+        moderator = false;
         loggedIn = false;
         FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
     }
 }
+
 

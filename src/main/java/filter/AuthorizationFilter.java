@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Johan Gustafsson
  * @since 2016-08-15.
  */
-//@WebFilter(urlPatterns = {"*.xhtml"})
+@WebFilter(urlPatterns = {"*.xhtml"})
 public class AuthorizationFilter implements Filter {
     @Inject
     LoginController user;
@@ -31,13 +31,14 @@ public class AuthorizationFilter implements Filter {
             HttpServletRequest reqt = (HttpServletRequest) request;
             HttpServletResponse resp = (HttpServletResponse) response;
             String reqURI = reqt.getRequestURI();
-            if (reqURI.contains("/login.xhtml") || reqURI.contains("/register.xhtml") || user.isLoggedIn()) {
-                chain.doFilter(request, response);
+
+            if (reqURI.contains("/admin/")) {
+                if (!user.isAdmin() || !user.isLoggedIn()) {
+                    resp.sendRedirect(reqt.getContextPath() + "/faces/index.xhtml");
+                }
             }
-            else
-            {
-                resp.sendRedirect(reqt.getContextPath() + "/faces/login.xhtml");
-            }
+            chain.doFilter(request, response);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

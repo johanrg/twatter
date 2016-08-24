@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 /**
  * @author Johan Gustafsson
@@ -22,7 +23,7 @@ public abstract class AbstractService<T> {
         getEntityManager().persist(entity);
     }
 
-    public void edit(T entity) {
+    public void update(T entity) {
         getEntityManager().merge(entity);
     }
 
@@ -32,6 +33,12 @@ public abstract class AbstractService<T> {
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
+    }
+
+    public List<T> getAll() {
+        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery();
+        criteriaQuery.select(criteriaQuery.from(entityClass));
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
 
     public int count() {

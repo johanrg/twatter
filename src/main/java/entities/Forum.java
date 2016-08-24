@@ -9,6 +9,9 @@ import javax.validation.constraints.Size;
  * @since 2016-08-23.
  */
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Forum.findByName", query = "SELECT f FROM Forum f WHERE f.name = :name"),
+})
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"name"})})
 public class Forum {
     @Id
