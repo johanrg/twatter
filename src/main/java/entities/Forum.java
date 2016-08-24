@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author Johan Gustafsson
@@ -18,8 +19,9 @@ public class Forum {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @NotNull
-    @Size(min = 1, max = 50)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forum")
+    private List<Thread> threads;
+
     @Column(columnDefinition = "VARCHAR(50) NOT NULL")
     private String name;
 
@@ -29,6 +31,14 @@ public class Forum {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public List<Thread> getThreads() {
+        return threads;
+    }
+
+    public void setThreads(List<Thread> threads) {
+        this.threads = threads;
     }
 
     public String getName() {

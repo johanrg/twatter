@@ -20,6 +20,5 @@ public class Post {
     private Thread thread;
 
     @Column(columnDefinition = "TEXT")
-    @NotNull
     private String message;
 }

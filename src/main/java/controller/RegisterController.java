@@ -47,7 +47,7 @@ public class RegisterController implements Serializable {
 
         if (userService.findByName(name) == null) {
             userService.createPerson(name, password, userClass);
-            return "thankyou";
+            return "thankyou?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage("register:username", new FacesMessage("Username is already taken"));
             return null;

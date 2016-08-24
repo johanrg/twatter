@@ -15,8 +15,6 @@ public class UserClass {
     private Integer id;
 
     @Column(columnDefinition = "VARCHAR(30) NOT NULL")
-    //@NotNull
-    //@Size(min = 1, max = 30)
     private String name;
 
     @Column(columnDefinition = "BIT(1) DEFAULT 0")

@@ -20,16 +20,12 @@ public class User {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "USERCLASS_ID")
+    @JoinColumn
     private UserClass userClass;
 
-    //@NotNull
-    //@Size(min = 1, max = 60)
     @Column(columnDefinition = "VARCHAR(60) NOT NULL")
     private String name;
 
-    //@NotNull
-    //@Size(min = 1, max = 45)
     @Column(columnDefinition = "VARCHAR(45) NOT NULL")
     private String password;
 

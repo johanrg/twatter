@@ -34,7 +34,7 @@ public class AuthorizationFilter implements Filter {
 
             if (reqURI.contains("/admin/")) {
                 if (!user.isAdmin() || !user.isLoggedIn()) {
-                    resp.sendRedirect(reqt.getContextPath() + "/faces/index.xhtml");
+                    resp.sendRedirect(reqt.getContextPath() + "/faces/forum.xhtml");
                 }
             }
             chain.doFilter(request, response);

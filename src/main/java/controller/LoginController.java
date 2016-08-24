@@ -38,7 +38,7 @@ public class LoginController implements Serializable {
             admin = user.getUserClass().getAdmin();
             moderator = user.getUserClass().getModerator();
             loggedIn = true;
-            return "index";
+            return "forum?faces-redirect=true";
         }
     }
 
@@ -74,7 +74,7 @@ public class LoginController implements Serializable {
         admin = false;
         moderator = false;
         loggedIn = false;
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("forum.xhtml");
     }
 }
 

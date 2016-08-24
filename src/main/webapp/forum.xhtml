@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <p>
+        <h:panelGroup layout="block" rendered="#{loginController.admin}">
+            | <h:link value="Admin panel" outcome="admin/index?faces-redirect=true"/> |
+        </h:panelGroup>
+        <h:panelGroup rendered="#{loginController.loggedIn}">
+            <h:form> | <h:commandLink value="Log out" action="#{loginController.logout}"/> | </h:form>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{!loginController.loggedIn}">
+            | <h:link value="Log in" outcome="login?faces-redirect=true"/> |
+        </h:panelGroup>
+    </p>
+    <h:panelGroup rendered="#{!loginController.loggedIn}"><p>Please log in to the site</p></h:panelGroup>
+    <h:panelGroup rendered="#{loginController.loggedIn}"><p>Welcome back, #{loginController.name}!</p></h:panelGroup>
+
+    <h:form>
+        <h3>List of forums</h3>
+        <h:dataTable value="#{forumController.forumService.all}" var="forum" border="1" cellpadding="4">
+            <h:column>
+                <f:facet name="header">Forum Name</f:facet>
+                <h:link value="#{forum.name}" outcome="thread">
+                    <f:param name="forumId" value="#{forum.id}"/>
+                </h:link>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</f:view>
+</html>
