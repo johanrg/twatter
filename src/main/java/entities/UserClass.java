@@ -18,7 +18,7 @@ public class UserClass {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userClass", cascade = CascadeType.PERSIST)
     private List<User> user;
 
-    @Column(columnDefinition = "VARCHAR(30) NOT NULL")
+    @Column(length = 30, nullable = false)
     private String name;
 
     @Column(columnDefinition = "BIT(1) DEFAULT 0")

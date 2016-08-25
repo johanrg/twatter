@@ -23,10 +23,10 @@ public class User {
     @JoinColumn
     private UserClass userClass;
 
-    @Column(columnDefinition = "VARCHAR(60) NOT NULL")
+    @Column(length = 60, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "VARCHAR(45) NOT NULL")
+    @Column(length = 45, nullable = false)
     private String password;
 
     public Integer getId() {

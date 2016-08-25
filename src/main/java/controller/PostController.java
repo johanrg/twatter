@@ -10,6 +10,8 @@ import services.ThreadService;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -32,7 +34,11 @@ public class PostController implements Serializable {
     PostService postService;
 
     private int forumId;
+    @NotNull
+    @Size(min = 1, max = 60)
     private String topic;
+    @NotNull
+    @Size(min = 1, max = 64000)
     private String message;
 
     public String createNewTopic() {
@@ -42,12 +48,13 @@ public class PostController implements Serializable {
         Date now = calendar.getTime();
         Timestamp currentTime = new Timestamp(now.getTime());
 
-        entities.Thread thread =  threadService.createThread(forum,  user, topic, currentTime);
-        postService.createPost(thread, user, message, currentTime);
+        Post post = postService.newPost(user, message, currentTime);
+        entities.Thread thread = threadService.newThread(user, topic, currentTime);
+        thread.getPost().add(post);
         forum.getThreads().add(thread);
         forumService.update(forum);
 
-        return "thread?faces-redirect=true&forumId=" + forumId;
+        return "forumdisplay?faces-redirect=true&forumId=" + forumId;
     }
 
     public int getForumId() {

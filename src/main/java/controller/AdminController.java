@@ -9,6 +9,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +23,8 @@ import java.util.List;
 public class AdminController implements Serializable {
     @Inject
     private ForumService forumService;
+    @NotNull
+    @Size(min = 1, max = 50)
     private String forumName;
     private int forumId;
 
@@ -31,7 +35,8 @@ public class AdminController implements Serializable {
 
     public String addForum() {
         if (forumService.findByName(forumName) == null) {
-            forumService.createForum(forumName);
+            Forum forum = forumService.newForum(forumName);
+            forumService.create(forum);
             return "admin_forum?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage("newForum:forumName", new FacesMessage("There is already a forum with that name."));

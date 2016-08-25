@@ -27,7 +27,7 @@ public class Thread {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "thread", cascade = CascadeType.PERSIST)
     private List<Post> post;
 
-    @Column(columnDefinition = "VARCHAR(60) NOT NULL")
+    @Column(length = 60, nullable = false)
     private String topic;
 
     @Column(nullable = false)

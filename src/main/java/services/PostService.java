@@ -21,14 +21,12 @@ public class PostService extends AbstractService<Post> {
         super(Post.class);
     }
 
-    public Post createPost(entities.Thread thread, User user, String message, Timestamp createdAt) {
+    public Post newPost(User user, String message, Timestamp createdAt) {
         Post post = new Post();
-        post.setThread(thread);
         post.setUser(user);
         post.setMessage(message);
         post.setCreatedAt(createdAt);
 
-        create(post);
         return post;
     }
 

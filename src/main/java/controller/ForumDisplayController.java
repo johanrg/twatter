@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Named
 @RequestScoped
-public class ThreadController {
+public class ForumDisplayController {
     @Inject
     private ForumService forumService;
     private Forum forum;
@@ -29,11 +29,11 @@ public class ThreadController {
     }
 
     public void setForumId(int forumId) {
+        forum = forumService.find(forumId);
         this.forumId = forumId;
     }
 
     public List<Thread> getThreadList() {
-        forum = forumService.find(forumId);
         if (forum != null) {
             return forum.getThreads();
         } else {

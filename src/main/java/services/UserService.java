@@ -22,13 +22,12 @@ public class UserService extends AbstractService<User> {
         super(User.class);
     }
 
-    public User createPerson(String name, String password, UserClass userClass) {
+    public User newPerson(String name, String password, UserClass userClass) {
         User user = new User();
         user.setName(name);
         user.setPassword(password);
         user.setUserClass(userClass);
 
-        create(user);
         return user;
     }
 

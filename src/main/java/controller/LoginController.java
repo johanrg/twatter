@@ -9,6 +9,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -22,13 +24,18 @@ import java.io.Serializable;
 public class LoginController implements Serializable {
     @Inject
     private UserService userService;
+    private User user;
 
+    @NotNull
+    @Size(min = 1, max = 60)
     private String name;
+    @NotNull
+    @Size(min = 1, max = 45)
     private String password;
+
     private boolean loggedIn;
     private boolean admin;
     private boolean moderator;
-    private User user;
 
     public String submit() throws IOException {
         user = userService.findByNameAndPassword(name, password);

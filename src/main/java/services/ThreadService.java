@@ -24,14 +24,13 @@ public class ThreadService extends AbstractService<Thread> {
         super(Thread.class);
     }
 
-    public entities.Thread createThread(Forum forum, User startedBy, String topic, Timestamp createdAt) {
+    public entities.Thread newThread(User startedBy, String topic, Timestamp createdAt) {
         entities.Thread thread = new entities.Thread();
-        thread.setForum(forum);
         thread.setStartedBy(startedBy);
         thread.setTopic(topic);
         thread.setCreatedAt(createdAt);
+        thread.setPost(new ArrayList<>());
 
-        create(thread);
         return thread;
     }
 

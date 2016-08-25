@@ -17,11 +17,13 @@
                          required="true"
                          requiredMessage="Please enter a topic"/>
             <h:message for="topic" style="color: red;"/>
+
             <h:outputLabel id="messageLabel" for="message" value="message"/>
             <h:inputTextarea cols="50" rows="20" id="message" value="#{postController.message}"
                              required="true"
                              requiredMessage="You must enter a message"/>
             <h:message for="message" style="color:red;"/>
+
         </h:panelGrid>
         <h:commandButton value="Submit" action="#{postController.createNewTopic}"/>
     </h:form>

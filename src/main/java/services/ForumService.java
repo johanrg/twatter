@@ -20,11 +20,10 @@ public class ForumService extends AbstractService<Forum> {
         super(Forum.class);
     }
 
-    public Forum createForum(String name) {
+    public Forum newForum(String name) {
         Forum forum = new Forum();
         forum.setName(name);
 
-        create(forum);
         return forum;
     }
 

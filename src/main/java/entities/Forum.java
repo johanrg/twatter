@@ -22,7 +22,7 @@ public class Forum {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "forum", cascade = CascadeType.PERSIST)
     private List<entities.Thread> threads;
 
-    @Column(columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(length = 50, nullable = false)
     private String name;
 
     public Integer getId() {

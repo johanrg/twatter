@@ -1,5 +1,6 @@
 package controller;
 
+import entities.User;
 import entities.UserClass;
 import services.UserClassService;
 import services.UserService;
@@ -15,6 +16,8 @@ import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -31,9 +34,12 @@ public class RegisterController implements Serializable {
     @Inject
     private UserClassService userClassService;
 
+    @NotNull
+    @Size(min = 1, max = 60)
     private String name;
+    @NotNull
+    @Size(min = 1, max = 45)
     private String password;
-    private String confirmPassword;
 
     public String submit() throws IOException {
         UserClass userClass;
@@ -46,8 +52,9 @@ public class RegisterController implements Serializable {
         }
 
         if (userService.findByName(name) == null) {
-            userService.createPerson(name, password, userClass);
-            return "thankyou?faces-redirect=true";
+            User user = userService.newPerson(name, password, userClass);
+            userService.create(user);
+            return "thankyou?faces-redirect=true&username=" + name;
         } else {
             FacesContext.getCurrentInstance().addMessage("register:username", new FacesMessage("Username is already taken"));
             return null;
@@ -68,14 +75,6 @@ public class RegisterController implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 }
 

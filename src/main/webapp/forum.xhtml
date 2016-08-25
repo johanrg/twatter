@@ -25,7 +25,7 @@
         <h:dataTable value="#{forumController.forumService.all}" var="forum" border="1" cellpadding="4">
             <h:column>
                 <f:facet name="header">Forum Name</f:facet>
-                <h:link value="#{forum.name}" outcome="thread">
+                <h:link value="#{forum.name}" outcome="forumdisplay">
                     <f:param name="forumId" value="#{forum.id}"/>
                 </h:link>
             </h:column>

@@ -32,9 +32,7 @@ public abstract class AbstractService<T> {
     }
 
     public T find(Object id) {
-        T entity = getEntityManager().find(entityClass, id);
-        //getEntityManager().refresh(entity);
-        return entity;
+        return getEntityManager().find(entityClass, id);
     }
 
     public void refresh(Object id) {
