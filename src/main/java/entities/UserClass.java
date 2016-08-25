@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author Johan Gustafsson
@@ -13,6 +14,9 @@ public class UserClass {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userClass", cascade = CascadeType.PERSIST)
+    private List<User> user;
 
     @Column(columnDefinition = "VARCHAR(30) NOT NULL")
     private String name;

@@ -36,9 +36,10 @@ public class AuthorizationFilter implements Filter {
                 if (!user.isAdmin() || !user.isLoggedIn()) {
                     resp.sendRedirect(reqt.getContextPath() + "/faces/forum.xhtml");
                 }
+            } else if (reqURI.contains("/newpost.xhtml") && !user.isLoggedIn()) {
+                resp.sendRedirect(reqt.getContextPath() + "/faces/forum.xhtml");
             }
             chain.doFilter(request, response);
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

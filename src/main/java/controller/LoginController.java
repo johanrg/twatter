@@ -21,16 +21,17 @@ import java.io.Serializable;
 @SessionScoped
 public class LoginController implements Serializable {
     @Inject
-    UserService userService;
+    private UserService userService;
 
     private String name;
     private String password;
     private boolean loggedIn;
     private boolean admin;
     private boolean moderator;
+    private User user;
 
     public String submit() throws IOException {
-        User user = userService.findByNameAndPassword(name, password);
+        user = userService.findByNameAndPassword(name, password);
         if (user == null) {
             FacesContext.getCurrentInstance().addMessage("login:loginGroupPanel", new FacesMessage("Invalid username or password"));
             return null;
@@ -75,6 +76,10 @@ public class LoginController implements Serializable {
         moderator = false;
         loggedIn = false;
         FacesContext.getCurrentInstance().getExternalContext().redirect("forum.xhtml");
+    }
+
+    public User getUser() {
+        return user;
     }
 }
 

@@ -2,11 +2,13 @@ package controller;
 
 import entities.Forum;
 import entities.Thread;
+import entities.User;
 import services.ForumService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +29,11 @@ public class ThreadController {
     }
 
     public void setForumId(int forumId) {
-        forum = forumService.find(forumId);
         this.forumId = forumId;
     }
 
     public List<Thread> getThreadList() {
+        forum = forumService.find(forumId);
         if (forum != null) {
             return forum.getThreads();
         } else {

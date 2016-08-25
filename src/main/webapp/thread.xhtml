@@ -6,20 +6,39 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="forumId" value="#{ThreadController.forumId}"/>
+    <f:viewParam name="forumId" value="#{threadController.forumId}"/>
 </f:metadata>
 <f:view>
     <h:form>
-        <h3>#{ThreadController.forum.name}</h3>
-        <h:dataTable value="#{ThreadController.threadList}" var="thread" border="1" cellpadding="4">
-            <h:column>
-                <f:facet name="header">Topic</f:facet>
-                <h:link value="#{thread.topic}" outcome="post">
-                    <f:param name="forumId" value="#{ThreadController.forumId}"/>
-                    <f:param name="threadId" value="#{thread.id}"/>
-                </h:link>
-            </h:column>
-        </h:dataTable>
+        <h:panelGroup rendered="#{threadController.threadList.size() > 0}">
+            <h:dataTable value="#{threadController.threadList}" var="thread" border="1" cellpadding="4">
+                <f:facet name="header">
+                  #{threadController.forum.name}
+                </f:facet>
+                <h:column >
+                    <f:facet name="header">Topic</f:facet>
+                    <h:link value="#{thread.topic}" outcome="post">
+                        <f:param name="forumId" value="#{threadController.forumId}"/>
+                        <f:param name="threadId" value="#{thread.id}"/>
+                    </h:link>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Started by</f:facet>
+                    #{thread.startedBy.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Created</f:facet>
+                    #{thread.createdAt}
+                </h:column>
+            </h:dataTable>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{threadController.threadList.size() == 0}">
+            <h3>No topics available, be the first to create one!</h3>
+        </h:panelGroup>
+        <h:link value="Go Back" outcome="forum"/> |
+        <h:link value="New Topic" outcome="newpost?faces-redirect=true" rendered="#{loginController.loggedIn}">
+            <f:param name="forumId" value="#{threadController.forumId}"/>
+        </h:link>
     </h:form>
 </f:view>
 </html>

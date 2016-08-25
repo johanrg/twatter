@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author Johan Gustafsson
@@ -20,7 +21,11 @@ public class Thread {
     private Forum forum;
 
     @ManyToOne
+    @JoinColumn
     private User startedBy;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "thread", cascade = CascadeType.PERSIST)
+    private List<Post> post;
 
     @Column(columnDefinition = "VARCHAR(60) NOT NULL")
     private String topic;
@@ -66,5 +71,13 @@ public class Thread {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
     }
 }

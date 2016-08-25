@@ -19,8 +19,8 @@ public class Forum {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forum")
-    private List<Thread> threads;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forum", cascade = CascadeType.PERSIST)
+    private List<entities.Thread> threads;
 
     @Column(columnDefinition = "VARCHAR(50) NOT NULL")
     private String name;
@@ -33,12 +33,8 @@ public class Forum {
         this.id = id;
     }
 
-    public List<Thread> getThreads() {
+    public List<entities.Thread> getThreads() {
         return threads;
-    }
-
-    public void setThreads(List<Thread> threads) {
-        this.threads = threads;
     }
 
     public String getName() {
