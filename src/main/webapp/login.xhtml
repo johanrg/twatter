@@ -6,31 +6,34 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h1>Login</h1>
 
-    <h1>Login</h1>
+            <h:form id="login">
 
-    <h:form id="login">
+                <h:message for="loginPanel" style="color:red;"/>
 
-        <h:message for="loginPanel" style="color:red;"/>
+                <h:panelGrid columns="3" id="loginPanel">
 
-        <h:panelGrid columns="3" id="loginPanel">
+                    <h:outputLabel for="username" value="User name : "/>
+                    <h:inputText id="username" value="#{loginController.name}" required="true"
+                                 requiredMessage="Please enter username">
+                    </h:inputText>
+                    <h:message for="username" style="color: red;"/>
 
-            <h:outputLabel for="username" value="User name : "/>
-            <h:inputText id="username" value="#{loginController.name}" required="true"
-                         requiredMessage="Please enter username">
-            </h:inputText>
-            <h:message for="username" style="color: red;"/>
+                    <h:outputLabel for="password" value="Password : "/>
+                    <h:inputSecret id="password" value="#{loginController.password}" required="true"
+                                   requiredMessage="Please enter password">
+                    </h:inputSecret>
+                    <h:message for="password" style="color: red;"/>
+                </h:panelGrid>
 
-            <h:outputLabel for="password" value="Password : "/>
-            <h:inputSecret id="password" value="#{loginController.password}" required="true"
-                           requiredMessage="Please enter password">
-            </h:inputSecret>
-            <h:message for="password" style="color: red;"/>
-        </h:panelGrid>
-
-        <h:commandButton action="#{loginController.submit}" value="Login"/>
-        <p>Not registred? Feel free to register <h:link value="here" outcome="register?faces-redirect=true" />.</p>
-    </h:form>
-
+                <h:commandButton action="#{loginController.submit}" value="Login"/>
+                <p>Not registred? Feel free to register <h:link value="here" outcome="register?faces-redirect=true"/>.
+                </p>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

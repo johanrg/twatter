@@ -13,14 +13,14 @@ import javax.validation.constraints.Size;
         @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
         @NamedQuery(name = "User.findByNameAndPassword", query = "SELECT u FROM User u WHERE u.name = :name AND u.password = :password")
 })
-@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"name"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USERCLASS", referencedColumnName = "ID")
     private UserClass userClass;
 
     @Column(length = 60, nullable = false)
@@ -37,7 +37,7 @@ public class User {
         this.id = id;
     }
 
-   public UserClass getUserClass() {
+    public UserClass getUserClass() {
         return userClass;
     }
 
@@ -59,5 +59,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("id: ").append(id);
+        s.append(", name:").append(name);
+        s.append(", password:").append(password);
+        if (userClass != null) s.append(", userClass:").append(userClass.getName());
+        return s.toString();
     }
 }

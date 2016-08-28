@@ -1,8 +1,7 @@
 package entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +18,8 @@ public class Forum {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "forum", cascade = CascadeType.PERSIST)
-    private List<entities.Thread> threads;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "forum")
+    private List<ForumThread> forumThreads;
 
     @Column(length = 50, nullable = false)
     private String name;
@@ -33,8 +32,26 @@ public class Forum {
         this.id = id;
     }
 
-    public List<entities.Thread> getThreads() {
-        return threads;
+    public void addForumThread(ForumThread forumThread) {
+        if (forumThread != null) {
+            if (forumThreads == null) {
+                forumThreads = new ArrayList<>();
+            }
+            forumThreads.add(forumThread);
+        }
+    }
+
+    public void removeForumThread(ForumThread forumThread) {
+        if (forumThread != null && forumThreads != null) {
+            int index = forumThreads.indexOf(forumThread);
+            if (index != -1) {
+                forumThreads.remove(index);
+            }
+        }
+    }
+
+    public List<ForumThread> getForumThreads() {
+        return forumThreads;
     }
 
     public String getName() {
@@ -43,5 +60,13 @@ public class Forum {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("id:").append(id);
+        s.append(", name:").append(name);
+        return s.toString();
     }
 }

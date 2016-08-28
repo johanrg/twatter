@@ -6,41 +6,43 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h1>Register</h1>
 
-    <h1>Register</h1>
+            <h:form id="register">
 
-    <h:form id="register">
+                <h:message for="RegisterGroupPanel" style="color:red;"/>
 
-        <h:message for="RegisterGroupPanel" style="color:red;"/>
+                <h:panelGrid columns="3" id="RegisterGroupPanel">
 
-        <h:panelGrid columns="3" id="RegisterGroupPanel">
+                    <h:outputLabel for="username" value="Username : "/>
+                    <h:inputText id="username" value="#{registerController.name}"
+                                 required="true"
+                                 requiredMessage="Please enter username">
+                    </h:inputText>
+                    <h:message for="username" style="color: red;"/>
 
-            <h:outputLabel for="username" value="Username : "/>
-            <h:inputText id="username" value="#{registerController.name}"
-                         required="true"
-                         requiredMessage="Please enter username">
-            </h:inputText>
-            <h:message for="username" style="color: red;"/>
+                    <h:outputLabel for="password" value="Password : "/>
+                    <h:inputSecret id="password" value="#{registerController.password}" required="true"
+                                   requiredMessage="Please enter password">
+                        <f:validator validatorId="passwordValidator"/>
+                        <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+                    </h:inputSecret>
+                    <h:message for="password" style="color: red;"/>
 
-            <h:outputLabel for="password" value="Password : "/>
-            <h:inputSecret id="password" value="#{registerController.password}" required="true"
-                           requiredMessage="Please enter password">
-               <f:validator validatorId="passwordValidator"/>
-                <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
-            </h:inputSecret>
-            <h:message for="password" style="color: red;"/>
+                    <h:outputLabel for="confirmPassword" value="Confirm password : "/>
+                    <h:inputSecret id="confirmPassword" required="true"
+                                   binding="#{confirmPassword}"
+                                   requiredMessage="Please enter confirm password"/>
+                    <h:message for="confirmPassword" style="color: red;"/>
 
-            <h:outputLabel for="confirmPassword" value="Confirm password : "/>
-            <h:inputSecret id="confirmPassword" required="true"
-                           binding="#{confirmPassword}"
-                           requiredMessage="Please enter confirm password"/>
-            <h:message for="confirmPassword" style="color: red;"/>
+                </h:panelGrid>
 
-        </h:panelGrid>
+                <h:commandButton action="#{registerController.submit}" value="register"/>
 
-        <h:commandButton action="#{registerController.submit}" value="register"/>
-
-    </h:form>
-
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

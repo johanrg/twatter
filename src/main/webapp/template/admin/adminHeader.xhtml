@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<body>
+<ui:composition>
+    <h:form>
+        <div class="admin-masthead">
+            <div class="container">
+                <div class="blog-nav">
+                    <h:link styleClass="blog-nav-item" value="Main Site" outcome="/forum?faces-redirect=true"/>
+                    <h:link styleClass="blog-nav-item" value="Admin panel"
+                            outcome="/admin/index?faces-redirect=true"/>
+                    <h:panelGroup rendered="#{loginController.loggedIn}">
+                        <h:commandLink styleClass="blog-nav-item" value="Log out" action="#{loginController.logout}"/>
+                    </h:panelGroup>
+                    <h:panelGroup styleClass="blog-nav-item"
+                                  rendered="#{loginController.loggedIn}">Welcome back, #{loginController.name}!
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{!loginController.loggedIn}">
+                        <h:link styleClass="blog-nav-item" value="Log in" outcome="login?faces-redirect=true"/>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+    </h:form>
+    <p>
+
+    </p>
+
+</ui:composition>
+</body>
+</html>

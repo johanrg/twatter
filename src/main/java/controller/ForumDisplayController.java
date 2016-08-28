@@ -1,14 +1,12 @@
 package controller;
 
 import entities.Forum;
-import entities.Thread;
-import entities.User;
+import entities.ForumThread;
 import services.ForumService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,9 +31,9 @@ public class ForumDisplayController {
         this.forumId = forumId;
     }
 
-    public List<Thread> getThreadList() {
+    public List<ForumThread> getThreadList() {
         if (forum != null) {
-            return forum.getThreads();
+            return forum.getForumThreads();
         } else {
             return null;
         }

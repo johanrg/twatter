@@ -15,8 +15,8 @@ public class UserClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userClass", cascade = CascadeType.PERSIST)
-    private List<User> user;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userClass")
+    private List<User> users;
 
     @Column(length = 30, nullable = false)
     private String name;
@@ -57,5 +57,15 @@ public class UserClass {
 
     public void setModerator(Boolean moderator) {
         this.moderator = moderator;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        s.append("id: ").append(id);
+        s.append(", name:").append(name);
+        s.append(", admin:").append(admin);
+        s.append(", moderator:").append(moderator);
+        return s.toString();
     }
 }

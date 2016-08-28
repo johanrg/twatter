@@ -8,20 +8,20 @@
 <f:metadata>
     <f:viewParam name="forumId" value="#{adminController.forumId}"/>
 </f:metadata>
-<f:view>
-    <h:form id="editForum">
-        <h3>Edit forum</h3>
-        <h:panelGrid columns="2" id="editFormGroupPanel">
-            <h:inputText id="forumName" value="#{adminController.forumName}"
-                         required="true"
-                         requiredMessage="Please enter a forum name"/>
-            <h:message for="forumName" style="color: red;"/>
-            <h:commandButton value="Edit" action="#{adminController.editForum}"/>
-        </h:panelGrid>
-    </h:form>
-    <br/>
-    <h:panelGroup>
-        <h:link value="Go Back" outcome="admin_forum"/>
-    </h:panelGroup>
-</f:view>
+<h:body>
+    <ui:composition template="/template/admin/adminLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="editForum">
+                <h3>Edit forum</h3>
+                <h:panelGrid columns="2" id="editFormGroupPanel">
+                    <h:inputText id="forumName" value="#{adminController.forumName}"
+                                 required="true"
+                                 requiredMessage="Please enter a forum name"/>
+                    <h:message for="forumName" style="color: red;"/>
+                    <h:commandButton value="Edit" action="#{adminController.editForum}"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
 </html>

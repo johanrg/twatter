@@ -6,28 +6,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:metadata>
-    <f:viewParam name="forumId" value="#{postController.forumId}"/>
+    <f:viewParam name="postId" value="#{postController.editId}"/>
+    <f:viewParam name="threadId" value="#{postController.threadId}"/>
 </f:metadata>
 <h:body>
     <ui:composition template="template/common/commonLayout.xhtml">
         <ui:define name="content">
-            <h:form id="newPostForm">
+            <h:form>
                 <h:panelGrid columns="1">
 
-                    <h:outputLabel id="topicLabel" for="topic" value="Topic"/>
-                    <h:inputText id="topic" value="#{postController.topic}"
-                                 required="true"
-                                 requiredMessage="Please enter a topic"/>
-                    <h:message for="topic" style="color: red;"/>
-
-                    <h:outputLabel id="messageLabel" for="message" value="message"/>
+                    <h:inputHidden name="editId" value="#{postController.editId}"/>
+                    <h:outputLabel id="messageLabel" for="message" value="message:"/>
                     <h:inputTextarea cols="50" rows="20" id="message" value="#{postController.message}"
                                      required="true"
                                      requiredMessage="You must enter a message"/>
                     <h:message for="message" style="color:red;"/>
 
                 </h:panelGrid>
-                <h:commandButton value="Submit" action="#{postController.createNewTopic}"/>
+                <h:commandButton value="Submit" action="#{postController.editPost}"/>
             </h:form>
         </ui:define>
     </ui:composition>

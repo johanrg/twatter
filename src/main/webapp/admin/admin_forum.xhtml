@@ -6,27 +6,34 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:body>
-    <h1>Admin Page</h1>
-    <h:form>
-        <h3>List of forums</h3>
-        <h:dataTable value="#{adminController.forumService.all}" var="forum" border="1" cellpadding="4">
-            <h:column>
-                <f:facet name="header">Name</f:facet>
-                #{forum.name}
-            </h:column>
-            <h:column>
-                <f:facet name="header">Operation</f:facet>
-                <h:commandLink value="Delete" action="#{adminController.deleteForum(forum.id)}"/>
-                |
-                <h:link value="Edit" outcome="admin_edit_forum">
-                    <f:param name="forumId" value="#{forum.id}"/>
-                </h:link>
-            </h:column>
-        </h:dataTable>
-    </h:form>
-    <br/>
-    <h:panelGroup>
-        <h:link value="Go back" outcome="index"/> | <h:link value="Add a new forum" outcome="admin_add_forum"/>
-    </h:panelGroup>
+    <ui:composition template="/template/admin/adminLayout.xhtml">
+        <ui:define name="content">
+            <h1>Admin Page</h1>
+            <h:form>
+                <h3>List of forums</h3>
+                <h:dataTable value="#{adminController.forumService.all}" var="forum"
+                             styleClass="forumTable"
+                             headerClass="adminTableHeader"
+                             rowClasses="forumTableOddRow,forumTableEvenRow">
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        #{forum.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Operation</f:facet>
+                        <h:commandLink value="Delete" action="#{adminController.deleteForum(forum.id)}"/>
+                        |
+                        <h:link value="Edit" outcome="admin_edit_forum">
+                            <f:param name="forumId" value="#{forum.id}"/>
+                        </h:link>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+            <br/>
+            <h:panelGroup>
+                <h:link value="Add a new forum" outcome="admin_add_forum"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

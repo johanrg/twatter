@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="threadId" value="#{postController.threadId}"/>
+    <f:viewParam name="postId" value="#{postController.postId}"/>
+</f:metadata>
+<h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h3>Reply to the following message by #{postController.getPostById(postController.postId).user.name}</h3>
+            #{postController.getPostById(postController.postId).message}
+            <br/>
+            <br/>
+            <h:form>
+                <h:panelGrid columns="1">
+                    <h:inputHidden id="postId" name="postId" value="#{postController.postId}"/>
+                    <h:outputLabel value="Message:" for="message"/>
+                    <h:inputTextarea cols="50" rows="20" id="message" value="#{postController.message}"
+                                     required="true"
+                                     requiredMessage="Please enter a message"/>
+                    <h:message for="message" style="color: red;"/>
+                    <h:commandButton value="Reply" action="#{postController.replyToPost(postController.postId)}"/>
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

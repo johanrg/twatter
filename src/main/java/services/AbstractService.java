@@ -19,11 +19,11 @@ public abstract class AbstractService<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    public void persist(T entity) {
         getEntityManager().persist(entity);
     }
 
-    public void update(T entity) {
+    public void merge(T entity) {
         getEntityManager().merge(entity);
     }
 

@@ -5,22 +5,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h1>Admin Page</h1>
-    <h:form id="newForum">
-        <h3>Create a new forum</h3>
-        <h:panelGrid columns="2">
-            <h:inputText id="forumName" value="#{adminController.forumName}"
-                         required="true"
-                         requiredMessage="Specify a forum name">
-            </h:inputText>
-            <h:message for="forumName" style="color: red;"/>
-        </h:panelGrid>
-        <h:commandButton value="Add" action="#{adminController.addForum}"/>
-    </h:form>
-    <br/>
-    <h:panelGroup>
-        <h:link value="Go Back" outcome="admin_forum"/>
-    </h:panelGroup>
-</f:view>
+<h:body>
+    <ui:composition template="/template/admin/adminLayout.xhtml">
+        <ui:define name="content">
+            <h1>Admin Page</h1>
+            <h:form id="newForum">
+                <h3>Create a new forum</h3>
+                <h:panelGrid columns="2">
+                    <h:inputText id="forumName" value="#{adminController.forumName}"
+                                 required="true"
+                                 requiredMessage="Specify a forum name">
+                    </h:inputText>
+                    <h:message for="forumName" style="color: red;"/>
+                </h:panelGrid>
+                <h:commandButton value="Add" action="#{adminController.addForum}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
 </html>

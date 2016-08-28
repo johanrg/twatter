@@ -1,10 +1,12 @@
 package controller;
 
+import entities.Forum;
 import services.ForumService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 /**
  * @author johan
@@ -12,11 +14,11 @@ import javax.inject.Named;
  */
 @Named
 @RequestScoped
-public class forumController {
+public class ForumController {
     @Inject
     private ForumService forumService;
 
-    public ForumService getForumService() {
-        return forumService;
+    public List<Forum> getForumList() {
+        return forumService.getAll();
     }
 }

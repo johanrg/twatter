@@ -12,7 +12,6 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author Johan Gustafsson
@@ -36,7 +35,7 @@ public class AdminController implements Serializable {
     public String addForum() {
         if (forumService.findByName(forumName) == null) {
             Forum forum = forumService.newForum(forumName);
-            forumService.create(forum);
+            forumService.persist(forum);
             return "admin_forum?faces-redirect=true";
         } else {
             FacesContext.getCurrentInstance().addMessage("newForum:forumName", new FacesMessage("There is already a forum with that name."));
@@ -48,7 +47,7 @@ public class AdminController implements Serializable {
         Forum forum = forumService.find(forumId);
         if (forum != null) {
             forum.setName(forumName);
-            forumService.update(forum);
+            forumService.merge(forum);
             return "admin_forum?faces-redirect=true";
         }
         FacesContext.getCurrentInstance().addMessage("editForum:forumName", new FacesMessage("The forum you are editing does not exits."));

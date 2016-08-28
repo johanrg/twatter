@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:metadata>
+    <f:viewParam name="threadId" value="#{postController.threadId}"/>
+    <f:viewParam name="postId" value="#{postController.postId}"/>
+</f:metadata>
+<h:body>
+    <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:define name="content">
+            <h3>Are you sure you want to delete the following post by #{postController.getPostById(postController.postId).user.name}?</h3>
+            #{postController.getPostById(postController.postId).message}
+            <br/>
+            <br/>
+            <h:form>
+                <h:commandLink value="Yes" action="#{postController.removePost(postController.postId)}"/>&nbsp;
+                <h:link value="No" outcome="showthread?faces-redirect=true&amp;threadId=#{postController.threadId}">
+                </h:link>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
