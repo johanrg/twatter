@@ -1,8 +1,13 @@
 package controller;
 
 
-import entities.Forum;
-import services.ForumService;
+import com.sun.org.glassfish.gmbal.IncludeSubclass;
+import entity.Forum;
+import entity.ForumPost;
+import entity.ForumThread;
+import service.ForumPostService;
+import service.ForumService;
+import service.ForumThreadService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -22,6 +27,11 @@ import java.io.Serializable;
 public class AdminController implements Serializable {
     @Inject
     private ForumService forumService;
+    @Inject
+    private ForumThreadService forumThreadService;
+    @Inject
+    private ForumPostService forumPostService;
+
     @NotNull
     @Size(min = 1, max = 50)
     private String forumName;
@@ -30,6 +40,15 @@ public class AdminController implements Serializable {
     public void deleteForum(int id) {
         Forum forum = forumService.find(id);
         forumService.remove(forum);
+    }
+
+    public void deletePosts(ForumPost forumPost) {
+        if (forumPost.getReplies().size() > 0) {
+            for (ForumPost fp : forumPost.getReplies()) {
+                deletePosts(fp);
+            }
+        }
+        forumPostService.remove(forumPost);
     }
 
     public String addForum() {

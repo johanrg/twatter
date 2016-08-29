@@ -1,17 +1,17 @@
 package controller;
 
-import entities.Forum;
-import entities.ForumPost;
-import entities.ForumThread;
-import entities.User;
-import services.ForumService;
-import services.ForumPostService;
-import services.ForumThreadService;
+import entity.Forum;
+import entity.ForumPost;
+import entity.ForumThread;
+import entity.User;
+import service.ForumService;
+import service.ForumPostService;
+import service.ForumThreadService;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.TransactionScoped;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -76,30 +76,43 @@ public class PostController implements Serializable {
         ForumPost replyToPost = forumPostService.find(postId);
         ForumPost forumPost = forumPostService.newPost(user, message, currentTime);
 
-        replyToPost.addReply(forumPost);
         forumPost.setReplyTo(replyToPost);
         forumPost.setForumThread(forumThread);
+        forumPostService.persist(forumPost);
+
+        replyToPost.addReply(forumPost);
+        forumPostService.merge(replyToPost);
+
         forumThread.addForumPost(forumPost);
         forumThread.setPostCount(forumThread.getPostCount() + 1);
         forumThreadService.merge(forumThread);
+
         return "showthread?faces-redirect=true&threadId=" + threadId;
     }
 
     public String removePost(int id) {
         ForumPost forumPost = forumPostService.find(id);
+        if (forumPost == null) return null;
         if (forumPost.numberOfReplies() > 0) {
             forumPost.setMessage("<DELETED>");
             forumPostService.merge(forumPost);
         } else {
             ForumThread forumThread = forumPost.getForumThread();
+
             forumThread.removeForumPost(forumPost);
             forumThread.setPostCount(forumThread.getPostCount() - 1);
+
+            ForumPost parent = forumPost.getReplyTo();
+            if (parent != null) {
+                parent.removeReply(forumPost);
+                forumPostService.merge(parent);
+            }
             forumPostService.remove(forumPost);
             if (forumThread.getNumberOfForumPosts() == 0) {
                 Forum forum = forumThread.getForum();
                 forum.removeForumThread(forumThread);
-                forumService.merge(forum);
                 forumThreadService.remove(forumThread);
+                forumService.merge(forum);
                 return "forum?faces-redirect=true";
             } else {
                 forumThreadService.merge(forumThread);

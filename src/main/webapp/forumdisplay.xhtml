@@ -11,7 +11,9 @@
 <h:body>
     <ui:composition template="template/common/commonLayout.xhtml">
         <ui:define name="content">
-            <h3>#{forumDisplayController.forum.name}</h3>
+            <h:panelGroup layout="block" styleClass="forumTopic">
+                #{forumDisplayController.forum.name}
+            </h:panelGroup>
             <h:form>
                 <h:panelGroup rendered="#{forumDisplayController.threadList.size() > 0}">
                     <h:dataTable value="#{forumDisplayController.threadList}" var="forumThread"

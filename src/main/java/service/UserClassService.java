@@ -1,6 +1,6 @@
-package services;
+package service;
 
-import entities.UserClass;
+import entity.UserClass;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

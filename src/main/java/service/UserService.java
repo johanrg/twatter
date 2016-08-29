@@ -1,10 +1,9 @@
-package services;
+package service;
 
-import entities.User;
-import entities.UserClass;
+import entity.User;
+import entity.UserClass;
 
 import javax.ejb.Stateless;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;

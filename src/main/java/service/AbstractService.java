@@ -1,4 +1,4 @@
-package services;
+package service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

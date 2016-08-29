@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -23,7 +23,11 @@ public class ForumThread {
     @JoinColumn(name = "USER", referencedColumnName = "ID")
     private User startedBy;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "forumThread")
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.REMOVE},
+            orphanRemoval = true, mappedBy = "forumThread")
     @OrderBy("createdAt ASC")
     private List<ForumPost> forumPosts;
 
@@ -109,6 +113,7 @@ public class ForumThread {
     public int getNumberOfForumPosts() {
         return forumPosts.size();
     }
+
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();

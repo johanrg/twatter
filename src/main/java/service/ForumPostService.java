@@ -1,15 +1,12 @@
-package services;
+package service;
 
-import entities.ForumPost;
-import entities.ForumThread;
-import entities.User;
+import entity.ForumPost;
+import entity.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.sql.Timestamp;
-import java.util.List;
 
 /**
  * @author Johan Gustafsson

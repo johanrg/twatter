@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -32,7 +32,10 @@ public class ForumPost {
     @ManyToOne(optional = true)
     private ForumPost replyTo;
 
-    @OneToMany(cascade = CascadeType.MERGE ,mappedBy = "replyTo")
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE},
+            orphanRemoval = true, mappedBy = "replyTo")
     private List<ForumPost> replies;
 
     public Integer getId() {
@@ -73,6 +76,14 @@ public class ForumPost {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<ForumPost> getReplies() {
+        return replies;
+    }
+
+    public void setReplies(List<ForumPost> replies) {
+        this.replies = replies;
     }
 
     public void addReply(ForumPost forumPost) {

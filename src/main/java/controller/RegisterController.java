@@ -1,9 +1,9 @@
 package controller;
 
-import entities.User;
-import entities.UserClass;
-import services.UserClassService;
-import services.UserService;
+import entity.User;
+import entity.UserClass;
+import service.UserClassService;
+import service.UserService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

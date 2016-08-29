@@ -13,7 +13,7 @@
                              styleClass="forumTable"
                              headerClass="forumTableHeader"
                              rowClasses="forumTableOddRow,forumTableEvenRow">
-                    <h:column>
+                    <h:column columnClasses="forumColumn">
                         <f:facet name="header">Forum Name</f:facet>
                         <h:link value="#{forum.name}" outcome="forumdisplay">
                             <f:param name="forumId" value="#{forum.id}"/>

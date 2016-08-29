@@ -1,4 +1,4 @@
-package entities;
+package entity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,13 +12,16 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Forum.findByName", query = "SELECT f FROM Forum f WHERE f.name = :name"),
 })
-@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"name"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class Forum {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "forum")
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE},
+            orphanRemoval = true, mappedBy = "forum")
     private List<ForumThread> forumThreads;
 
     @Column(length = 50, nullable = false)

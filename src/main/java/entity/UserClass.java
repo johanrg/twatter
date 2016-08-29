@@ -1,8 +1,6 @@
-package entities;
+package entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -15,7 +13,10 @@ public class UserClass {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "userClass")
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE},
+            mappedBy = "userClass")
     private List<User> users;
 
     @Column(length = 30, nullable = false)

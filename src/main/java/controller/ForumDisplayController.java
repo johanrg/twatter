@@ -1,8 +1,8 @@
 package controller;
 
-import entities.Forum;
-import entities.ForumThread;
-import services.ForumService;
+import entity.Forum;
+import entity.ForumThread;
+import service.ForumService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

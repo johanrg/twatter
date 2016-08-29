@@ -1,6 +1,6 @@
-package services;
+package service;
 
-import entities.Forum;
+import entity.Forum;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
