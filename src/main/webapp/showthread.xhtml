@@ -51,7 +51,7 @@
                             <h:outputText value="#{node.value.message}"/>
                         </h:panelGroup>
                     </h:panelGroup>
-                    <ui:repeat rendered="#{node.lastChild and empty node.kids}" value="" var="ignore">
+                    <ui:repeat rendered="#{node.lastChild and empty node.kids}" value="#{node.lastChildLineage}" var="ignore">
                         <h:outputText value="&lt;/div&gt;" escape="false"/>
                     </ui:repeat>
                 </ui:repeat>
