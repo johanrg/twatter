@@ -28,6 +28,14 @@ public class UserClass {
     @Column(columnDefinition = "BIT(1) DEFAULT 0")
     private Boolean moderator;
 
+    public UserClass() {}
+
+    public UserClass(String name, boolean admin, boolean moderator) {
+        this.name = name;
+        this.admin = admin;
+        this.moderator = moderator;
+    }
+
     public Integer getId() {
         return id;
     }

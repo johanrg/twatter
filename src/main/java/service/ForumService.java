@@ -20,12 +20,6 @@ public class ForumService extends AbstractService<Forum> {
         super(Forum.class);
     }
 
-    public Forum newForum(String name) {
-        Forum forum = new Forum();
-        forum.setName(name);
-
-        return forum;
-    }
 
     public Forum findByName(String name) {
         try {

@@ -21,15 +21,6 @@ public class UserService extends AbstractService<User> {
         super(User.class);
     }
 
-    public User newPerson(String name, String password, UserClass userClass) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(password);
-        user.setUserClass(userClass);
-
-        return user;
-    }
-
     public User findByName(String name) {
         try {
             return getEntityManager().createNamedQuery("User.findByName", User.class).setParameter("name", name).getSingleResult();

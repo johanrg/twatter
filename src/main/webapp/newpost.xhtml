@@ -13,7 +13,7 @@
         <ui:define name="content">
             <h:form id="newPostForm">
                 <h:panelGrid columns="1">
-
+                    <h:inputHidden id="forumId" value="#{postController.forumId}"/>
                     <h:outputLabel id="topicLabel" for="topic" value="Topic"/>
                     <h:inputText id="topic" value="#{postController.topic}"
                                  required="true"

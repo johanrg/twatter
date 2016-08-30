@@ -53,7 +53,7 @@ public class AdminController implements Serializable {
 
     public String addForum() {
         if (forumService.findByName(forumName) == null) {
-            Forum forum = forumService.newForum(forumName);
+            Forum forum = new Forum(forumName);
             forumService.persist(forum);
             return "admin_forum?faces-redirect=true";
         } else {

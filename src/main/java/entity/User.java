@@ -27,6 +27,14 @@ public class User {
     @Column(length = 45, nullable = false)
     private String password;
 
+    public User() {}
+
+    public User(String name, String password, UserClass userClass) {
+        this.name = name;
+        this.password = password;
+        this.userClass = userClass;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -21,16 +21,6 @@ public class ForumThreadService extends AbstractService<ForumThread> {
         super(ForumThread.class);
     }
 
-    public ForumThread newThread(User startedBy, String topic, Timestamp createdAt) {
-        ForumThread forumThread = new ForumThread();
-        forumThread.setStartedBy(startedBy);
-        forumThread.setTopic(topic);
-        forumThread.setCreatedAt(createdAt);
-        forumThread.setPostCount(1);
-
-        return forumThread;
-    }
-
     @Override
     public EntityManager getEntityManager() {
         return entityManager;

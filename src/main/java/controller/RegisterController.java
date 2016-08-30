@@ -46,7 +46,7 @@ public class RegisterController implements Serializable {
         }
 
         if (userService.findByName(name) == null) {
-            User user = userService.newPerson(name, password, userClass);
+            User user = new User(name, password, userClass);
             userService.persist(user);
             return "thankyou?faces-redirect=true&username=" + name;
         } else {

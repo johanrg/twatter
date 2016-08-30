@@ -36,7 +36,15 @@ public class ForumPost {
             CascadeType.PERSIST,
             CascadeType.MERGE},
             orphanRemoval = true, mappedBy = "replyTo")
-    private List<ForumPost> replies;
+    private List<ForumPost> replies = new ArrayList<>();
+
+    public ForumPost() {}
+
+    public ForumPost(User user, String message, Timestamp createdAt) {
+        this.user = user;
+        this.message = message;
+        this.createdAt = createdAt;
+    }
 
     public Integer getId() {
         return id;

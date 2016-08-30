@@ -2,12 +2,6 @@
  * Override Bootstrap's default container.
  */
 
-@media (min-width: 1200px) {
-    .container {
-        width: 970px;
-    }
-}
-
 body {
     background: #EEEEEE;
 !important;
@@ -38,6 +32,10 @@ body {
     color: #cdddeb;
 }
 
+.blog-main {
+
+}
+
 .blog-nav-item:hover,
 .blog-nav-item:focus {
     color: #fff;
@@ -63,8 +61,7 @@ body {
 
 .forumTable {
     border-collapse: collapse;
-    border: 1px solid #000000;
-    width: 100%;
+    width: 600px;
 }
 
 .forumTableHeader {
@@ -104,27 +101,25 @@ body {
 .forumTopic {
     background: #428bca;
     color: white;
-    font-size: 1.5em;
-    border: 1px solid black;
-    padding: 0.3em;
-    margin-bottom: 0.4em;
+    font-size: 2em;
+    padding: 0.1em 0.3em;
+    width: 600px;
 }
 
 .forumList {
-    margin-left: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-left: 3em;
 }
 
 .forumPost {
-    border: 1px solid black;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
+    width: 600px;
 }
 
 .forumHeader {
     background: #428bca;
     color: white;
-    padding: 0.4em;
+    padding: 0.1em 0.3em;
+    font-size: 0.9em;
 }
 
 .forumBody {

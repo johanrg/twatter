@@ -25,11 +25,10 @@ public class ForumThread {
 
     @OneToMany(cascade = {
             CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.REMOVE},
+            CascadeType.MERGE},
             orphanRemoval = true, mappedBy = "forumThread")
     @OrderBy("createdAt ASC")
-    private List<ForumPost> forumPosts;
+    private List<ForumPost> forumPosts = new ArrayList<>();
 
     @Column(length = 60, nullable = false)
     private String topic;
@@ -39,6 +38,16 @@ public class ForumThread {
 
     @Column(nullable = false)
     private Integer postCount;
+
+    public ForumThread() {}
+
+    public ForumThread(User startedBy, String topic, Timestamp createdAt) {
+        this.startedBy = startedBy;
+        this.topic = topic;
+        this.createdAt = createdAt;
+        this.postCount = 1;
+    }
+
 
     public Integer getId() {
         return id;

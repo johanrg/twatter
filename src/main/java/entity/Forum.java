@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,16 @@ public class Forum {
             CascadeType.PERSIST,
             CascadeType.MERGE},
             orphanRemoval = true, mappedBy = "forum")
-    private List<ForumThread> forumThreads;
+    private List<ForumThread> forumThreads = new ArrayList<>();
 
     @Column(length = 50, nullable = false)
     private String name;
+
+    public Forum() {}
+
+    public Forum(String name) {
+        this.name = name;
+    }
 
     public Integer getId() {
         return id;

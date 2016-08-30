@@ -21,15 +21,6 @@ public class ForumPostService extends AbstractService<ForumPost> {
         super(ForumPost.class);
     }
 
-    public ForumPost newPost(User user, String message, Timestamp createdAt) {
-        ForumPost forumPost = new ForumPost();
-        forumPost.setUser(user);
-        forumPost.setMessage(message);
-        forumPost.setCreatedAt(createdAt);
-
-        return forumPost;
-    }
-
     @Override
     protected EntityManager getEntityManager() {
         return entityManager;

@@ -9,6 +9,7 @@ import service.ForumPostService;
 import service.ForumThreadService;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.TransactionScoped;
@@ -54,12 +55,16 @@ public class PostController implements Serializable {
         Date now = calendar.getTime();
         Timestamp currentTime = new Timestamp(now.getTime());
 
-        ForumPost forumPost = forumPostService.newPost(user, message, currentTime);
-        ForumThread forumThread = forumThreadService.newThread(user, topic, currentTime);
+        ForumPost forumPost = new ForumPost(user, message, currentTime);
+        ForumThread forumThread = new ForumThread(user, topic, currentTime);
 
-        forumPost.setForumThread(forumThread);
         forumThread.addForumPost(forumPost);
         forumThread.setForum(forum);
+        forumThreadService.persist(forumThread); // ?
+
+        forumPost.setForumThread(forumThread);
+        forumPostService.persist(forumPost); // ?
+
         forum.addForumThread(forumThread);
         forumService.merge(forum);
 
@@ -74,7 +79,7 @@ public class PostController implements Serializable {
 
         ForumThread forumThread = forumThreadService.find(threadId);
         ForumPost replyToPost = forumPostService.find(postId);
-        ForumPost forumPost = forumPostService.newPost(user, message, currentTime);
+        ForumPost forumPost = new ForumPost(user, message, currentTime);
 
         forumPost.setReplyTo(replyToPost);
         forumPost.setForumThread(forumThread);
