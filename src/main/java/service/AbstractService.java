@@ -41,13 +41,13 @@ public abstract class AbstractService<T> {
     }
 
     public List<T> getAll() {
-        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery<T> criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         criteriaQuery.select(criteriaQuery.from(entityClass));
         return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
 
     public int count() {
-        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery();
+        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(getEntityManager().getCriteriaBuilder().count(root));
         Query query = getEntityManager().createQuery(criteriaQuery);
