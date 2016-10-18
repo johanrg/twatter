@@ -47,7 +47,7 @@ public abstract class AbstractService<T> {
     }
 
     public int count() {
-        CriteriaQuery criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
+        CriteriaQuery<T> criteriaQuery = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(getEntityManager().getCriteriaBuilder().count(root));
         Query query = getEntityManager().createQuery(criteriaQuery);

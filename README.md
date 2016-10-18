@@ -27,7 +27,7 @@ asadmin create-jdbc-connection-pool --datasourceclassname com.mysql.jdbc.jdbc2.o
   javax.sql.DataSource --property user=root:password={password}>:DatabaseName=forum:ServerName=localhost:port=3306 forum-pool
 ```
 
-Replace {password} with your root mysql password where it says {password} above.
+Replace {password} including the braces, with your root mysql password where it says {password} above.
 
 This will create a connection pool called forum-pool
 
